@@ -1,11 +1,16 @@
 import { useFormik } from "formik";
 import { basicSchema } from "../schemas/yupSchema";
-
+import axios from "axios";
+const getUsers = async () => {
+  const response = await axios.get("http://localhost:5173/users");
+  console.log("axios", response.data);
+};
 const onSubmit = (values: any, actions: any) => {
   console.log(values, "\n", actions);
   actions.resetForm();
 };
 const FormComponent = () => {
+  getUsers();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -14,6 +19,9 @@ const FormComponent = () => {
       ageInput: "",
       passwordInput: "",
       confirmPasswordInput: "",
+      field1Input: "",
+      field2Input: "",
+      field3Input: "",
     },
     onSubmit,
     validationSchema: basicSchema,
@@ -161,6 +169,76 @@ const FormComponent = () => {
               formik.touched.confirmPasswordInput ? (
                 <div className="invalid-feedback d-block">
                   {formik.errors.confirmPasswordInput}
+                </div>
+              ) : (
+                <div className="valid-feedback d-block">looks good</div>
+              )
+            ) : null}
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="field1Input" className="m-2">
+              Field 1
+            </label>
+            <input
+              type="number"
+              value={formik.values.field1Input}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="form-control"
+              id="field1Input"
+              placeholder="field1"
+            />
+            {formik.touched.field1Input ? (
+              formik.errors.field1Input && formik.touched.field1Input ? (
+                <div className="invalid-feedback d-block">
+                  {formik.errors.field1Input}
+                </div>
+              ) : (
+                <div className="valid-feedback d-block">looks good</div>
+              )
+            ) : null}
+          </div>
+
+          <div className="form-group mt-3">
+            <label htmlFor="field2Input" className="m-2">
+              field2
+            </label>
+            <input
+              type="number"
+              value={formik.values.field2Input}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="form-control"
+              id="field2Input"
+              placeholder="field2"
+            />
+            {formik.touched.field2Input ? (
+              formik.errors.field2Input && formik.touched.field2Input ? (
+                <div className="invalid-feedback d-block">
+                  {formik.errors.field2Input}
+                </div>
+              ) : (
+                <div className="valid-feedback d-block">looks good</div>
+              )
+            ) : null}
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="field3Input" className="m-2">
+              field3
+            </label>
+            <input
+              type="number"
+              value={formik.values.field3Input}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="form-control"
+              id="field3Input"
+              placeholder="field3"
+            />
+            {formik.touched.field3Input ? (
+              formik.errors.field3Input && formik.touched.field3Input ? (
+                <div className="invalid-feedback d-block">
+                  {formik.errors.field3Input}
                 </div>
               ) : (
                 <div className="valid-feedback d-block">looks good</div>

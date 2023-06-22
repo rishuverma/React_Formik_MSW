@@ -21,6 +21,18 @@ export const basicSchema = yup.object().shape({
     .required("Required"),
   confirmPasswordInput: yup
     .string()
-    .oneOf([yup.ref("passwordInput")], "Passwords must match")
+    .oneOf([yup.ref("passwordInput"), undefined], "Passwords must match")
     .required("Required"),
+  field1Input: yup
+    .number()
+    .min(1, "field1 must be more than 1")
+    .max(3500, "field1 must be less than or equal to 3500"),
+  field2Input: yup
+    .number()
+    .min(1, "field2 must be more than or equal to 1")
+    .max(yup.ref("field1Input"), " field2 must be lesser than field1"),
+  field3Input: yup
+    .number()
+    .min(1, "field3 must be more than or equal to 1")
+    .max(yup.ref("field2Input"), " field3 must be lesser than field2"),
 });
